@@ -99,6 +99,12 @@
     </div>
   </header>
 
+  <main class="main">
+    <div class="container">
+      
+    </div>
+  </main>
+
 </template>
 
 <script>
