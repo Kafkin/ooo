@@ -1,0 +1,10 @@
+.span{
+  width: max-content; height: max-content;
+
+  &_alert-btn{
+    border-radius: 50%; color: #fff;
+    padding: 2px 7px 3px 7px;
+    background: #E0001B;
+    font-style: 12px;
+  }
+}
