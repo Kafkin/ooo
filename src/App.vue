@@ -102,17 +102,29 @@
   <main class="main">
     <div class="container">
       
+      <section class="section-banner">
+        <v-carousel :items="arrItems"></v-carousel>
+      </section>
+
     </div>
   </main>
 
 </template>
 
 <script>
+import vCarousel from "@/components/Carousel/vCarousel.vue"
+
 export default {
   name: 'App',
 
   data: () => ({
-
+    arrItems: [
+      'Banner.jpg', 'Banner.jpg', 'Banner.jpg',
+      'Banner.jpg', 'Banner.jpg', 'Banner.jpg',
+      'Banner.jpg', 'Banner.jpg', 'Banner.jpg',
+      'Banner.jpg', 'Banner.jpg', 'Banner.jpg',
+      'Banner.jpg'
+    ]
   }),
 
   watch: {
@@ -128,7 +140,7 @@ export default {
   },
 
   components: {
-
+    vCarousel
   },
 
   created() {
