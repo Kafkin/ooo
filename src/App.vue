@@ -99,11 +99,29 @@
     </div>
   </header>
 
+
+  
   <main class="main">
     <div class="container">
       
-      <section class="section-banner">
+      <section class="section section_banner">
         <v-carousel :items="arrItems"></v-carousel>
+      </section>
+
+      <section class="section section_stock-products">
+        <h1 class="section__title">Акции</h1>
+
+        <span class="span span_group">
+          <a class="section__link" href="#">Все акции</a>
+          <img src="./assets/icon/small_arrow_right.svg" alt="small_arrow_right">
+        </span>
+        
+        <div class="container container_products">
+          <v-product 
+            v-for="( product, index ) in stockProducts" :key="index"
+            :product="product"
+          ></v-product>
+        </div>
       </section>
 
     </div>
@@ -113,18 +131,59 @@
 
 <script>
 import vCarousel from "@/components/Carousel/vCarousel.vue"
+import vProduct from "@/components/vProduct.vue"
 
 export default {
   name: 'App',
 
   data: () => ({
+
     arrItems: [
       'Banner.jpg', 'Banner.jpg', 'Banner.jpg',
       'Banner.jpg', 'Banner.jpg', 'Banner.jpg',
       'Banner.jpg', 'Banner.jpg', 'Banner.jpg',
       'Banner.jpg', 'Banner.jpg', 'Banner.jpg',
       'Banner.jpg'
+    ],
+
+    stockProducts: [
+      { 
+        description: 'Клей-карандаш Berlingo “Ultra”,21г', 
+        img: 'glue.jpg', 
+        discount: 15, 
+        price: 58.20, 
+        mark: false,
+        stars: 4
+      },
+
+      { 
+        description: 'Печать самонаборная автоматическая Colop, Ø40мм, 2 круга', 
+        img: 'seal.jpg', 
+        discount: 25, 
+        price: 780.45, 
+        mark: true,
+        stars: 3 
+      },
+
+      { 
+        description: 'Ранец Berlingo Expert "Hockey league" 37*28*16см, 2 отделения, 1 карман, анатомическая спинка', 
+        img: 'knapsack.png', 
+        discount: 10, 
+        price: 2920.50, 
+        mark: true,
+        stars: 1
+      },
+
+      { 
+        description: 'Диспенсер настольный Berlingo для канцелярской клейкой ленты, ассорти', 
+        img: 'scotch.png', 
+        discount: 10, 
+        price: 475.38, 
+        mark: false,
+        stars: 5
+      },
     ]
+
   }),
 
   watch: {
@@ -140,7 +199,7 @@ export default {
   },
 
   components: {
-    vCarousel
+    vCarousel, vProduct
   },
 
   created() {

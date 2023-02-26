@@ -1,4 +1,8 @@
 .container{
   width: 1120px; height: max-content;
   margin: 0 auto;
+
+  &_products{
+    display: flex; gap: 32px;
+  }
 }

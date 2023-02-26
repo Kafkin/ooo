@@ -1,0 +1,22 @@
+.section{
+  width: 100%; height: max-content;
+  position: relative;
+
+  &__title{
+    font-size: 30px; font-weight: 600;
+    margin-bottom: 24px;
+  }
+
+  &__link{
+    font-size: 14px; font-weight: 600;
+    color: #E0001B;
+  }
+  
+  &_banner{
+    margin-bottom: 32px;
+  }
+
+  &_stock-products{
+    margin-bottom: 56px;
+  }
+}
