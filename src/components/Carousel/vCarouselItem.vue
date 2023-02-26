@@ -34,20 +34,5 @@ export default {
     },
   },
 
-  data: () => ({
-
-  }),
-
-  methods: {
-    
-  },
-
-  computed: {
-    
-  },
-
-  created() {
-    
-  }
 }
 </script>

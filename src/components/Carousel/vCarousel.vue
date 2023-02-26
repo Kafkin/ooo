@@ -2,16 +2,7 @@
 
   <div class="carousel">
     <div class="carousel__container-items">
-      
-      <v-carousel-item 
-        v-for="( item, index ) in items" :key="`item-${ index }`"
-        :current="currentItem" 
-        :dir="direction" 
-        :index="index"
-        :item="item" 
-      >
-      </v-carousel-item>
-      
+      <slot></slot>
     </div>
 
     <div class="carousel__container-btn">
@@ -19,8 +10,8 @@
       <img @click="next" class="carousel__arrow" src="@/assets/icon/arrow_right.svg" alt="arrow_right">
     </div>
 
-    <div class="carousel__container-dots">
-      <span 
+    <div class="carousel__container-dots" v-if="dots">
+      <span
         :class="['carousel__dot', { 'carousel__dot_active': currentItem === index }]"
         v-for="( dot, index ) in items" :key="`dot-${ index }`"
       >
@@ -31,8 +22,6 @@
 </template>
 
 <script>
-import vCarouselItem from './vCarouselItem.vue';
-
 export default {
   name: 'vCarousel',
 
@@ -40,36 +29,55 @@ export default {
     items: {
       required: true,
       type: Array
-    }
+    },
+
+    currentItem: {
+      required: true,
+      type: Number
+    },
+
+    direction: {
+      required: true,
+      type: String
+    },
+    
+    default: {
+      default: () => 0,
+      required: false,
+      type: Number
+    },
+
+    dots: {
+      default: () => false,
+      required: false,
+      type: Boolean
+    },
   },
 
   data: () => ({
-    direction: 'slide-out',
     disabled: false,
-    currentItem: 0
-
   }),
 
   methods: {
 
     next() {
       if( this.disabled ) return
-      this.direction = 'slide-out'
+      this.$emit( 'update:direction', 'slide-out' )
 
       this.currentItem < this.items.length - 1 
-        ? this.currentItem += 1
-        : this.currentItem = 0
+        ? this.$emit( 'update:currentItem', this.currentItem + 1 )
+        : this.$emit( 'update:currentItem', this.default )
 
       this.disabledBtn()
     },
 
     prev() {
       if( this.disabled ) return
-      this.direction = 'slide-in'
+      this.$emit( 'update:direction', 'slide-in' )
 
       this.currentItem > 0
-        ? this.currentItem -= 1
-        : this.currentItem = this.items.length - 1 
+        ? this.$emit( 'update:currentItem', this.currentItem - 1 )
+        : this.$emit( 'update:currentItem', this.items.length - 1  )
 
       this.disabledBtn()
     },
@@ -82,10 +90,6 @@ export default {
       }, 700)
     }
     
-  },
-
-  components: { 
-    vCarouselItem
   },
   
 }

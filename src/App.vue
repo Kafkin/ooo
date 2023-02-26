@@ -105,7 +105,21 @@
     <div class="container">
       
       <section class="section section_banner">
-        <v-carousel :items="arrItems"></v-carousel>
+        <v-carousel 
+          v-model:currentItem="sliderBanner.currentItem" 
+          v-model:direction="sliderBanner.direction" 
+          :items="arrItems"
+          :dots="true"
+        >
+          <v-carousel-item 
+            v-for="( item, index ) in arrItems" :key="`item-${ index }`"
+            :current="sliderBanner.currentItem" 
+            :dir="sliderBanner.direction"
+            :index="index"
+            :item="item" 
+          >
+          </v-carousel-item>
+        </v-carousel>
       </section>
 
       <section class="section section_stock-products">
@@ -117,10 +131,24 @@
         </span>
         
         <div class="container container_products">
-          <v-product 
-            v-for="( product, index ) in stockProducts" :key="index"
-            :product="product"
-          ></v-product>
+          <v-carousel 
+            v-model:currentItem="sliderProduct.currentItem" 
+            v-model:direction="sliderProduct.direction" 
+            class="carousel_product"
+            :items="stockProducts"
+            :default="3"
+            dots="true"
+          >
+            <v-product 
+              v-for="( product, index ) in stockProducts" :key="index"
+              :style="{ '--index': index }"
+              :current="sliderProduct.currentItem" 
+              :arrLength="sliderProduct.length"
+              :dir="sliderProduct.direction"
+              :product="product"
+              :index="index"
+            ></v-product>
+          </v-carousel>
         </div>
       </section>
 
@@ -130,6 +158,7 @@
 </template>
 
 <script>
+import vCarouselItem from "@/components/Carousel/vCarouselItem.vue"
 import vCarousel from "@/components/Carousel/vCarousel.vue"
 import vProduct from "@/components/vProduct.vue"
 
@@ -137,6 +166,16 @@ export default {
   name: 'App',
 
   data: () => ({
+
+    sliderBanner: {
+      direction: 'slide-out',
+      currentItem: 0,
+    },
+
+    sliderProduct: {
+      direction: 'slide-out',
+      currentItem: 3,
+    },
 
     arrItems: [
       'Banner.jpg', 'Banner.jpg', 'Banner.jpg',
@@ -147,6 +186,41 @@ export default {
     ],
 
     stockProducts: [
+      { 
+        description: 'Клей-карандаш Berlingo “Ultra”,21г', 
+        img: 'glue.jpg', 
+        discount: 15, 
+        price: 58.20, 
+        mark: false,
+        stars: 4
+      },
+
+      { 
+        description: 'Печать самонаборная автоматическая Colop, Ø40мм, 2 круга', 
+        img: 'seal.jpg', 
+        discount: 25, 
+        price: 780.45, 
+        mark: true,
+        stars: 3 
+      },
+
+      { 
+        description: 'Ранец Berlingo Expert "Hockey league" 37*28*16см, 2 отделения, 1 карман, анатомическая спинка', 
+        img: 'knapsack.png', 
+        discount: 10, 
+        price: 2920.50, 
+        mark: true,
+        stars: 1
+      },
+
+      { 
+        description: 'Диспенсер настольный Berlingo для канцелярской клейкой ленты, ассорти', 
+        img: 'scotch.png', 
+        discount: 10, 
+        price: 475.38, 
+        mark: false,
+        stars: 5
+      },
       { 
         description: 'Клей-карандаш Berlingo “Ultra”,21г', 
         img: 'glue.jpg', 
@@ -199,7 +273,7 @@ export default {
   },
 
   components: {
-    vCarousel, vProduct
+    vCarousel, vCarouselItem, vProduct
   },
 
   created() {
